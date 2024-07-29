@@ -1,0 +1,17 @@
+﻿@using OOP2_FinalProject.Code
+@page "/test"
+
+<h3>Test</h3>
+
+<input placeholder="Press the button" @bind="newTest" />
+<button @onclick="RunTest">TEST</button>
+
+@code {
+	private string? newTest;
+
+	private void RunTest()
+	{
+		TestClass t = new TestClass();
+		newTest = TestClass.TestFunc();
+	}
+}
