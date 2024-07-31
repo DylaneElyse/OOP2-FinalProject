@@ -22,16 +22,16 @@ namespace OOP2_FinalProject.Data
             return _connection.Table<Book>().ToListAsync();
         }
 
-        public Task<Book> GetBookAsync(int isbn)
+        public Task<Book> GetBookAsync(int id)
         {
             return _connection.Table<Book>()
-                .Where(i => i.Isbn == isbn)
+                .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
         }
 
         public Task<int> SaveBookAsync(Book book)
         {
-            if (book.Isbn != 0)
+            if (book.Id != 0)
             {
                 return _connection.UpdateAsync(book);
             }
