@@ -4,7 +4,7 @@
 @using OOP2_FinalProject.Data
 
 <h1>Library Management System</h1>
-
+<div>
 <h3>Books</h3>
 
 @if(!string.IsNullOrEmpty(BookErrorMessage))
@@ -43,6 +43,10 @@
         }
     </tbody>
 </table>
+</div>
+
+<div>
+<h3>Users</h3>
 
 <a href="/UserDB">Add New User</a>
 
@@ -75,6 +79,7 @@
         }
     </tbody>
 </table>
+</div>
 
 @code {
     private List<Book> books;
