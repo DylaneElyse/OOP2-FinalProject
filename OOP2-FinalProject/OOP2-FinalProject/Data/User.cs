@@ -11,8 +11,9 @@ namespace OOP2_FinalProject.Data
     {
         [PrimaryKey, AutoIncrement]
         public int IdNum { get; set; }
-        public string fName { get; set; }
-        public string lName { get; set; }
-        public string email { get; set; }
+        public string LibNum { get; set; }
+        public string FName { get; set; }
+        public string LName { get; set; }
+        public string Email { get; set; }
     }
 }

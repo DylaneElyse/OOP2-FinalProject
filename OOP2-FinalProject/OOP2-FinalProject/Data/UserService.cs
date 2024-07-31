@@ -17,7 +17,7 @@ namespace OOP2_FinalProject.Data
             _connection.CreateTableAsync<User>().Wait();
         }
 
-        public Task<List<User>> GetUsersAsync()
+        public Task<List<User>> GetUsersListAsync()
         {
             return _connection.Table<User>().ToListAsync();
         }

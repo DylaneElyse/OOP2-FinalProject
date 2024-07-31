@@ -7,9 +7,9 @@
 
 <h3>@(Isbn.HasValue? "Edit Item":"AddItem")</h3>
 
-@if (!string.IsNullOrEmpty(errorMessage))
+@if (!string.IsNullOrEmpty(BookErrorMessage))
 {
-    <div>@errorMessage</div>
+    <div>@BookErrorMessage</div>
 }
 
 <EditForm Model="@book" OnValidSubmit="SaveBook">
@@ -29,7 +29,7 @@
 @code {
     [Parameter]
     public int? Isbn { get; set; }
-    private string errorMessage;
+    private string BookErrorMessage;
     private Book book = new Book();
     private string tempIsbn;
 
@@ -42,7 +42,7 @@
         }
         catch (Exception e)
         {
-            errorMessage = e.Message;
+            BookErrorMessage = e.Message;
         }
     }
     protected override async Task OnInitializedAsync()
@@ -56,7 +56,7 @@
         }
         catch (Exception e)
         {
-            errorMessage = e.Message;
+            BookErrorMessage = e.Message;
         }
     }
 }
