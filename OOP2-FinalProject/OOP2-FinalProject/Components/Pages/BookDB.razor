@@ -1,0 +1,70 @@
+﻿@page "/bookDB/{Isbn:int?}"
+@using OOP2_FinalProject.Data
+@inject NavigationManager navigation
+@inject Data.BookService Database
+
+<h3>Books</h3>
+
+<h3>@(Isbn.HasValue? "Edit Item":"AddItem")</h3>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div>@errorMessage</div>
+})
+
+<EditForm Model="@book" OnValidSubmit="SaveBook">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <label for="Isbn">ISBN</label>
+    <InputText id="Isbn" @bind-Value="@tempIsbn"></InputText>
+    <label for="Title">Title</label>
+    <InputText id="Title" @bind-Value="@book.Title"></InputText>
+    <label for="Author">Author</label>
+    <InputText id="Author" @bind-Value="@book.Author"></InputText>
+    <label for="Genre">Genre</label>
+    <InputText id="Genre" @bind-Value="@book.Genre"></InputText>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Isbn { get; set; }
+    private string errorMessage;
+    private Book book = new Book();
+    private string tempIsbn;
+
+    private async Task SaveBook()
+    {
+        try
+        {
+            if (!int.TryParse(tempIsbn, out int isbnAsInt))
+            {
+                errorMessage = "Invalid ISBN format.";
+                return;
+            }
+
+            book.Isbn = isbnAsInt;
+
+            await Database.SaveBookAsync(book);
+            navigation.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (Isbn.HasValue)
+            {
+                book = await Database.GetBookAsync(Isbn.Value);
+            }
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
+    }
+}

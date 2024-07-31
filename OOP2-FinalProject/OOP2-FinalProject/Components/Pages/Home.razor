@@ -1,5 +1,74 @@
 ﻿@page "/"
+@inject Data.BookService BookDatabase
+@inject Data.UserService UserDatabase
+@using OOP2_FinalProject.Data
 
-<h1>Hello, world!</h1>
+<h1>Library Management System</h1>
 
-Welcome to your new app.
+<h3>Books</h3>
+
+@if(!string.IsNullOrEmpty(errorMessage))
+{
+        <p>@errorMessage</p>
+}
+
+<a href="/BookDB">Add New Book</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (books != null)
+        {
+            foreach (var book in books)
+            {
+                <tr>
+                    <td>@book.Isbn</td>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Genre</td>
+                    <td>
+                        <a href="/bookDB/@book.Isbn">Edit Book</a>
+                        <button @onclick="()=>DeleteBook(book)">Delete Book</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+    @code {
+    private List<Book> books;
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            books = await BookDatabase.GetBooksListAsync();
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
+    }
+
+    private async Task DeleteBook(Book book)
+    {
+        try
+        {
+            await BookDatabase.DeleteBookAsync(book);
+            books = await BookDatabase.GetBooksListAsync();
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
+    }
+}

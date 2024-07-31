@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using OOP2_FinalProject.Data;
 
 namespace OOP2_FinalProject
 {
@@ -20,6 +21,11 @@ namespace OOP2_FinalProject
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
+            var BookDBPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Book.db");
+            builder.Services.AddSingleton<BookService>(b => ActivatorUtilities.CreateInstance<BookService>(b, BookDBPath));
+
+            var UserDBPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "User.db");
+            builder.Services.AddSingleton<UserService>(u => ActivatorUtilities.CreateInstance<UserService>(u, UserDBPath));
 
             return builder.Build();
         }
