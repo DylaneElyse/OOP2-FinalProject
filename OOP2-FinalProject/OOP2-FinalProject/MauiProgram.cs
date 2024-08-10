@@ -21,11 +21,11 @@ namespace OOP2_FinalProject
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
-            var BookDBPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "BookDatabase.db");
-            builder.Services.AddSingleton<BookService>(b => ActivatorUtilities.CreateInstance<BookService>(b, BookDBPath));
+            var LibDBPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LibraryDatabase.db");
+            builder.Services.AddSingleton<LibraryService>(b => ActivatorUtilities.CreateInstance<LibraryService>(b, LibDBPath));
 
-            var UserDBPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UserDatabase.db");
-            builder.Services.AddSingleton<UserService>(u => ActivatorUtilities.CreateInstance<UserService>(u, UserDBPath));
+            //var UserDBPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "UserDatabase.db");
+            //builder.Services.AddSingleton<UserService>(u => ActivatorUtilities.CreateInstance<UserService>(u, UserDBPath));
 
             return builder.Build();
         }

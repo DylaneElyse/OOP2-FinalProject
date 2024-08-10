@@ -1,7 +1,7 @@
 ﻿@page "/userDB/{id:int?}"
 @using OOP2_FinalProject.Data
 @inject NavigationManager navigation
-@inject Data.UserService UserDatabase
+@inject Data.LibraryService LibraryDatabase
 
 <h3>Users</h3>
 
@@ -16,7 +16,7 @@
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
     <label for="LibraryNum">Library Card Number</label>
-    <InputText id="LibraryNum" @bind-Value="@user.LibNum"></InputText>
+    <InputNumber id="LibraryNum" TValue="int" @bind-Value="@user.LibNum"></InputNumber>
     <label for="FirstName">First Name</label>
     <InputText id="FirstName" @bind-Value="@user.FName"></InputText>
     <label for="LastName">Last Name</label>
@@ -36,7 +36,7 @@
     {
         try
         {
-            await UserDatabase.SaveUserAsync(user);
+            await LibraryDatabase.SaveUserAsync(user);
             navigation.NavigateTo("/");
         }
         catch (Exception e)
@@ -51,7 +51,7 @@
         {
             if (Id.HasValue)
             {
-                user = await UserDatabase.GetUserAsync(Id.Value);
+                user = await LibraryDatabase.GetUserAsync(Id.Value);
             }
         }
         catch (Exception e)

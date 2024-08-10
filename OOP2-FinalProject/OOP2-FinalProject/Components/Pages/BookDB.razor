@@ -1,11 +1,11 @@
-﻿@page "/bookDB/{Isbn:int?}"
+﻿@page "/bookDB/{id:int?}"
 @using OOP2_FinalProject.Data
 @inject NavigationManager navigation
-@inject Data.BookService BookDatabase
+@inject Data.LibraryService LibraryDatabase
 
 <h3>Books</h3>
 
-<h3>@(Isbn.HasValue? "Edit Item":"AddItem")</h3>
+<h3>@(Id.HasValue? "Edit Item":"AddItem")</h3>
 
 @if (!string.IsNullOrEmpty(BookErrorMessage))
 {
@@ -16,7 +16,7 @@
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
     <label for="Isbn">ISBN</label>
-    <InputText id="Isbn" @bind-Value="@book.Isbn"></InputText>
+    <InputNumber id="Isbn" TValue="long" @bind-Value="@book.Isbn"></InputNumber>
     <label for="Title">Title</label>
     <InputText id="Title" @bind-Value="@book.Title"></InputText>
     <label for="Author">Author</label>
@@ -28,16 +28,15 @@
 
 @code {
     [Parameter]
-    public int? Isbn { get; set; }
+    public int? Id { get; set; }
     private string BookErrorMessage;
     private Book book = new Book();
-    private string tempIsbn;
 
     private async Task SaveBook()
     {
         try
         {
-            await BookDatabase.SaveBookAsync(book);
+            await LibraryDatabase.SaveBookAsync(book);
             navigation.NavigateTo("/");
         }
         catch (Exception e)
@@ -49,9 +48,9 @@
     {
         try
         {
-            if (Isbn.HasValue)
+            if (Id.HasValue)
             {
-                book = await BookDatabase.GetBookAsync(Isbn.Value);
+                book = await LibraryDatabase.GetBookAsync(Id.Value);
             }
         }
         catch (Exception e)

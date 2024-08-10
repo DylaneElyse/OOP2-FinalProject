@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace OOP2_FinalProject.Data
 {
-    internal class User
+    internal class Rental
     {
         [PrimaryKey, AutoIncrement]
-        public int IdNum { get; set; }
+        public int RentNum { get; set; }
         public int LibNum { get; set; }
-        public string FName { get; set; }
-        public string LName { get; set; }
-        public string Email { get; set; }
+        public long Isbn { get; set; }
+        public DateTime BorrowDate { get; set; } = DateTime.Now;
+        public DateTime ReturnDate { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@page "/"
-@inject Data.BookService BookDatabase
-@inject Data.UserService UserDatabase
+@inject Data.LibraryService LibraryDatabase
+@* @inject Data.UserService UserDatabase*@
 @using OOP2_FinalProject.Data
 
 <h1>Library Management System</h1>
@@ -81,16 +81,55 @@
 </table>
 </div>
 
+<div>
+    <h3>Book Rentals</h3>
+
+    <a href="/RentalDB">Borrow a Book</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Library Card Number</th>
+                <th>ISBN</th>
+                <th>Date Borrowed</th>
+                <th>Return Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (rentals != null)
+            {
+                foreach (var rental in rentals)
+                {
+                    <tr>
+                        <td>@rental.LibNum</td>
+                        <td>@rental.Isbn</td>
+                        <td>@rental.BorrowDate</td>
+                        <td>@rental.ReturnDate</td>
+                        <td>
+                            <a href="/userDB/@rental.RentNum">Edit User</a>
+                            <button @onclick="()=>ReturnBook(rental)">Return Book</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
 @code {
     private List<Book> books;
     private List<User> users;
+    private List<Rental> rentals;
     private string BookErrorMessage;
     private string UserErrorMessage;
+    private string RentalErrorMessage;
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            books = await BookDatabase.GetBooksListAsync();
+            books = await LibraryDatabase.GetBooksListAsync();
         }
         catch (Exception e)
         {
@@ -98,11 +137,19 @@
         }
         try
         {
-            users = await UserDatabase.GetUsersListAsync();
+            users = await LibraryDatabase.GetUsersListAsync();
         }
         catch (Exception e)
         {
             UserErrorMessage = e.Message;
+        }
+        try
+        {
+            rentals = await LibraryDatabase.GetRentalsListAsync();
+        }
+        catch (Exception e)
+        {
+            RentalErrorMessage = e.Message;
         }
     }
 
@@ -110,8 +157,8 @@
     {
         try
         {
-            await BookDatabase.DeleteBookAsync(book);
-            books = await BookDatabase.GetBooksListAsync();
+            await LibraryDatabase.DeleteBookAsync(book);
+            books = await LibraryDatabase.GetBooksListAsync();
         }
         catch (Exception e)
         {
@@ -123,8 +170,8 @@
     {
         try
         {
-            await UserDatabase.DeleteUserAsync(user);
-            users = await UserDatabase.GetUsersListAsync();
+            await LibraryDatabase.DeleteUserAsync(user);
+            users = await LibraryDatabase.GetUsersListAsync();
         }
         catch (Exception e)
         {
@@ -132,4 +179,16 @@
         }
     }
 
+    private async Task ReturnBook(Rental rental)
+    {
+        try
+        {
+            await LibraryDatabase.ReturnBookAsync(rental);
+            rentals = await LibraryDatabase.GetRentalsListAsync();
+        }
+        catch (Exception e)
+        {
+            RentalErrorMessage = e.Message;
+        }
+    }
 }
