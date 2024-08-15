@@ -33,9 +33,10 @@
                         <td>@rental.Isbn</td>
                         <td>@rental.BorrowDate</td>
                         <td>@rental.ReturnDate</td>
-                        <td>
-                            <a class="pseudo-btn" href="/RentalDB/@rental.RentNum">Edit Rental</a>
-                            <button class="pseudo-btn" @onclick="()=>ReturnBook(rental)">Return Book</button>
+                        <td class="actions">
+                            <a class="pseudo-btn" id="edit" href="/RentalDB/@rental.RentNum">Edit Rental</a>
+                            |
+                            <a class="pseudo-btn" id="return" @onclick="()=>ReturnBook(rental)">Return Book</a>
                         </td>
                     </tr>
                 }

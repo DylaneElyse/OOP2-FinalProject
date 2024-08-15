@@ -31,29 +31,29 @@ a.pseudo-btn {
     color: inherit;
 }
 
-button.pseudo-btn {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    font: inherit;
-}
 div.flex-book, div.flex-user, div.flex-rent {
     margin-top:20px;
 }
+
 div.flex-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.pseudo-btn{
+#edit {
     width: 150px;
-    color: black;
+    color: green;
+}
+
+#delete, #return {
+    width: 150px;
+    color: red;
 }
 
 .pseudo-btn:hover {
-    color:purple;
     text-decoration:underline;
+    cursor:pointer;
 }
 
 .btn-primary {

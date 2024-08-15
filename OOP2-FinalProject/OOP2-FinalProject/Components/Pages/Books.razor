@@ -33,9 +33,10 @@
                             <td>@book.Title</td>
                             <td>@book.Author</td>
                             <td>@book.Genre</td>
-                            <td>
-                                <a class="pseudo-btn" href="/BookDB/@book.Id">Edit Book</a>
-                                <button class="pseudo-btn" @onclick="()=>DeleteBook(book)">Delete Book</button>
+                            <td class="actions">
+                                <a class="pseudo-btn" id="edit" href="/BookDB/@book.Id">Edit Book</a>
+                                |
+                                <a class="pseudo-btn" id="delete" @onclick="()=>DeleteBook(book)">Delete Book</a>
                             </td>
                         </tr>
                     }

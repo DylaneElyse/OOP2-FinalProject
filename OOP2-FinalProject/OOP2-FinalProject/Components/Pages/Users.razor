@@ -33,9 +33,10 @@
                             <td>@user.FName</td>
                             <td>@user.LName</td>
                             <td>@user.Email</td>
-                            <td>
-                                <a class="pseudo-btn" href="/UserDB/@user.IdNum">Edit User</a>
-                                <button class="pseudo-btn" @onclick="()=>DeleteUser(user)">Delete User</button>
+                            <td class="actions">
+                                <a class="pseudo-btn" id="edit" href="/UserDB/@user.IdNum">Edit User</a>
+                                |
+                                <a class="pseudo-btn" id="delete" @onclick="()=>DeleteUser(user)">Delete User</a>
                             </td>
                         </tr>
                     }

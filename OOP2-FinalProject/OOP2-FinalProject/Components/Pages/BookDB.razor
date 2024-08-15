@@ -15,14 +15,27 @@
 <EditForm Model="@book" OnValidSubmit="SaveBook">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
+
     <label for="Isbn">ISBN</label>
-    <InputNumber id="Isbn" TValue="long" @bind-Value="@book.Isbn"></InputNumber>
+    <InputNumber id="Isbn" placeholder="9780545069670" TValue="long" @bind-Value="@book.Isbn" required></InputNumber>
+    
+    <br>
+
     <label for="Title">Title</label>
-    <InputText id="Title" @bind-Value="@book.Title"></InputText>
+    <InputText id="Title" placeholder="Harry Potter and the Sorcerer's Stone" @bind-Value="@book.Title" required></InputText>
+    
+    <br>
+
     <label for="Author">Author</label>
-    <InputText id="Author" @bind-Value="@book.Author"></InputText>
+    <InputText id="Author" placeholder="J.K. Rowling" @bind-Value="@book.Author" required></InputText>
+    
+    <br>
+
     <label for="Genre">Genre</label>
-    <InputText id="Genre" @bind-Value="@book.Genre"></InputText>
+    <InputText id="Genre" placeholder="Fantasy" @bind-Value="@book.Genre" required></InputText>
+    
+    <br>
+
     <button type="submit">Submit</button>
 </EditForm>
 

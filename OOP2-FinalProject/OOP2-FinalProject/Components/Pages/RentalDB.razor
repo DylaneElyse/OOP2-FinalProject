@@ -15,9 +15,10 @@
 <EditForm Model="@rental" OnValidSubmit="@(() => SaveRental(SelectedUser, SelectedBook, BorrowDate))">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
+
     <label for="userSelect">Library Card Number</label>
     <select id="userSelect" @bind="@SelectedUser">
-        <option value="">Select User</option>
+        <option value="" selected>Select User</option>
         @if (users != null)
         {
             @foreach (var user in users)
@@ -25,10 +26,13 @@
                 <option value="@user.LibNum">@user.LibNum</option>
             }
         }
-       </select>
+    </select>
+
+    <br>
+
     <label for="bookSelect">ISBN</label>
     <select for="bookSelect" @bind="@SelectedBook">
-        <option value="">Select Book</option>
+        <option value="" selected>Select Book</option>
         @if (books != null)
         {
             @foreach (var book in books)
@@ -37,8 +41,14 @@
             }
         }
     </select>
+
+    <br>
+
     <label for="BorrowDate">Borrow Date</label>
     <InputDate id="BorrowDate" TValue="DateTime" @bind-Value="@BorrowDate"></InputDate>
+
+    <br>
+
     <button type="submit">Submit</button>
 </EditForm>
 
