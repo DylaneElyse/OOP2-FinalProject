@@ -3,7 +3,7 @@
 @inject NavigationManager navigation
 @inject Data.LibraryService LibraryDatabase
 
-<h3>Users</h3>
+<h1>Users</h1>
 
 <h3>@(Id.HasValue? "Edit User":"Add User")</h3>
 
@@ -37,7 +37,7 @@
         try
         {
             await LibraryDatabase.SaveUserAsync(user);
-            navigation.NavigateTo("/");
+            navigation.NavigateTo("/Users");
         }
         catch (Exception e)
         {

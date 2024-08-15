@@ -3,9 +3,9 @@
 @inject NavigationManager navigation
 @inject Data.LibraryService LibraryDatabase
 
-<h3>Books</h3>
+<h1>Books</h1>
 
-<h3>@(Id.HasValue? "Edit Item":"AddItem")</h3>
+<h3>@(Id.HasValue? "Edit Item":"Add Item")</h3>
 
 @if (!string.IsNullOrEmpty(BookErrorMessage))
 {
@@ -37,7 +37,7 @@
         try
         {
             await LibraryDatabase.SaveBookAsync(book);
-            navigation.NavigateTo("/");
+            navigation.NavigateTo("/Books");
         }
         catch (Exception e)
         {
