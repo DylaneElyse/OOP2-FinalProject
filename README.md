@@ -1,6 +1,6 @@
 # OOP2 Final Project
 
-### Created by Dylane Cunningham, Manraj Kambo, Zee (Hassan) Azhar
+### Created by Dylane Cunningham with contributions from Manraj Kambo
 ### Completed on August 15, 2024
 
 This project is a Library Management System.
